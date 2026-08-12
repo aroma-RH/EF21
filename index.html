@@ -8,8 +8,8 @@
     <title>EFFECTIF</title>
 
     <link
-        href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css"
         rel="stylesheet"
+        href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css"
     >
 
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
@@ -17,10 +17,7 @@
     <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
 
     <style>
-
-        *,
-        *::before,
-        *::after {
+        * {
             box-sizing: border-box;
             margin: 0;
             padding: 0;
@@ -30,42 +27,37 @@
             --gradient-start: rgb(0, 121, 107);
             --gradient-end: rgb(13, 194, 173);
 
-            --color-primary: #5146e5;
-            --color-primary-dark: #4338ca;
-            --color-primary-light: #eef2ff;
+            --primary: #5146e5;
+            --primary-dark: #4338ca;
 
-            --color-gray-50: #f8fafc;
-            --color-gray-100: #f1f5f9;
-            --color-gray-200: #e2e8f0;
-            --color-gray-300: #cbd5e1;
-            --color-gray-400: #94a3b8;
-            --color-gray-500: #64748b;
-            --color-gray-600: #475569;
-            --color-gray-700: #334155;
-            --color-gray-800: #1e293b;
-            --color-gray-900: #0f172a;
+            --gray-50: #f8fafc;
+            --gray-100: #f1f5f9;
+            --gray-200: #e2e8f0;
+            --gray-300: #cbd5e1;
+            --gray-400: #94a3b8;
+            --gray-500: #64748b;
+            --gray-600: #475569;
+            --gray-700: #334155;
+            --gray-800: #1e293b;
+            --gray-900: #0f172a;
 
-            --shadow-sm: 0 2px 4px rgba(15, 23, 42, 0.05);
-            --shadow: 0 4px 6px rgba(15, 23, 42, 0.08);
-            --shadow-md: 0 8px 12px rgba(15, 23, 42, 0.10);
-            --shadow-lg: 0 12px 24px rgba(15, 23, 42, 0.15);
-            --shadow-glow: 0 0 20px rgba(79, 70, 229, 0.15);
+            --shadow:
+                0 8px 25px rgba(15, 23, 42, 0.12);
 
-            --border-radius-sm: 0.375rem;
-            --border-radius: 0.5rem;
-            --border-radius-lg: 1rem;
-            --border-radius-xl: 1.5rem;
+            --radius: 10px;
+            --radius-lg: 16px;
         }
 
         body {
+            min-height: 100vh;
+
             font-family:
                 -apple-system,
                 BlinkMacSystemFont,
                 "Segoe UI",
                 Roboto,
+                Arial,
                 sans-serif;
-
-            min-height: 100vh;
 
             background:
                 linear-gradient(
@@ -74,86 +66,74 @@
                     var(--gradient-end)
                 );
 
-            color: var(--color-gray-900);
-
-            line-height: 1.5;
+            color: var(--gray-900);
         }
 
         .container {
-            max-width: 64rem;
-            margin: 2rem auto;
-            padding: 0 1.5rem;
+            width: 100%;
+            max-width: 1000px;
+
+            margin: 30px auto;
+
+            padding: 0 20px;
         }
 
         .card {
-            background-color: rgba(255, 255, 255, 0.95);
+            background: rgba(255, 255, 255, 0.97);
 
-            backdrop-filter: blur(12px);
-
-            border-radius: var(--border-radius-xl);
-
-            box-shadow:
-                var(--shadow-lg),
-                var(--shadow-glow);
+            border-radius: 22px;
 
             overflow: hidden;
 
-            border: 1px solid rgba(255, 255, 255, 0.2);
+            box-shadow: var(--shadow);
         }
 
-        /* ==========================================
-           FORM TOGGLE
-        ========================================== */
+        /* ================================
+           TOGGLE
+        ================================= */
 
         .form-toggle {
             display: flex;
 
+            gap: 8px;
+
+            padding: 8px;
+
+            background: var(--gray-50);
+
             border-bottom:
-                1px solid var(--color-gray-200);
-
-            padding: 0.5rem;
-
-            gap: 0.5rem;
-
-            background:
-                var(--color-gray-50);
+                1px solid var(--gray-200);
         }
 
         .toggle-btn {
             flex: 1;
 
-            padding:
-                1rem 1.5rem;
+            border: none;
 
-            font-size: 1.125rem;
+            background: transparent;
+
+            color: var(--gray-600);
+
+            padding: 15px;
+
+            border-radius: 10px;
+
+            font-size: 16px;
 
             font-weight: 600;
 
-            color:
-                var(--color-gray-600);
-
-            background: none;
-
-            border: none;
-
             cursor: pointer;
 
-            transition:
-                all 0.3s;
+            transition: 0.2s;
+        }
 
-            border-radius:
-                var(--border-radius);
-
-            display: flex;
-
-            align-items: center;
-
-            justify-content: center;
-
-            gap: 0.75rem;
+        .toggle-btn:hover {
+            background: var(--gray-100);
         }
 
         .toggle-btn.active {
+            color: white;
+
             background:
                 linear-gradient(
                     135deg,
@@ -161,102 +141,88 @@
                     var(--gradient-end)
                 );
 
-            color: white;
-
             box-shadow:
-                var(--shadow-md);
+                0 4px 10px rgba(0, 121, 107, 0.25);
         }
 
-        .toggle-btn:hover:not(.active) {
-            background:
-                var(--color-gray-100);
-
-            color:
-                var(--color-primary);
-        }
-
-        /* ==========================================
-           FORM
-        ========================================== */
+        /* ================================
+           CONTENT
+        ================================= */
 
         .form-content {
-            padding: 2rem;
+            padding: 30px;
         }
 
         .form-group {
-            margin-bottom: 1.5rem;
+            margin-bottom: 22px;
         }
 
         .form-label {
             display: block;
 
-            font-size: 0.875rem;
+            margin-bottom: 8px;
+
+            font-size: 14px;
 
             font-weight: 600;
 
-            color:
-                var(--color-gray-700);
-
-            margin-bottom: 0.5rem;
+            color: var(--gray-700);
         }
 
         .form-input {
             width: 100%;
 
-            padding:
-                0.875rem 1.25rem;
+            height: 52px;
+
+            padding: 0 15px;
 
             border:
-                2px solid var(--color-gray-200);
+                2px solid var(--gray-200);
 
-            border-radius:
-                var(--border-radius);
+            border-radius: var(--radius);
 
-            font-size: 1rem;
+            background: var(--gray-50);
 
-            background:
-                var(--color-gray-50);
+            font-size: 16px;
+
+            transition: 0.2s;
         }
 
         .form-input:focus {
             outline: none;
 
-            border-color:
-                var(--color-primary);
+            border-color: var(--primary);
 
-            background:
-                white;
+            background: white;
         }
 
-        /* ==========================================
-           BUTTON
-        ========================================== */
+        /* ================================
+           BUTTONS
+        ================================= */
 
         .btn {
-            display: inline-flex;
+            width: 100%;
 
-            align-items: center;
+            min-height: 52px;
 
-            justify-content: center;
-
-            padding:
-                0.875rem 1.5rem;
-
-            font-weight: 600;
-
-            font-size: 1rem;
-
-            border-radius:
-                var(--border-radius);
-
-            cursor: pointer;
+            padding: 12px 20px;
 
             border: none;
 
-            gap: 0.75rem;
+            border-radius: var(--radius);
+
+            font-size: 16px;
+
+            font-weight: 600;
+
+            cursor: pointer;
+
+            transition: 0.2s;
         }
 
         .btn-primary {
+            color: white;
+
             background:
                 linear-gradient(
                     135deg,
@@ -264,146 +230,108 @@
                     var(--gradient-end)
                 );
 
-            color: white;
+            box-shadow:
+                0 4px 10px rgba(0, 121, 107, 0.2);
+        }
 
-            width: 100%;
+        .btn-primary:hover {
+            transform: translateY(-1px);
 
             box-shadow:
-                var(--shadow-md);
+                0 6px 15px rgba(0, 121, 107, 0.25);
         }
 
         .btn-secondary {
-            background:
-                var(--color-gray-100);
+            color: var(--gray-700);
 
-            color:
-                var(--color-gray-700);
+            background: var(--gray-100);
         }
 
-        /* ==========================================
-           SELECT2
-        ========================================== */
-
-        .select2-container {
-            width: 100% !important;
-        }
-
-        .select2-container
-        .select2-selection--single {
-            height: 52px !important;
-
-            border:
-                2px solid var(--color-gray-200) !important;
-
-            border-radius:
-                var(--border-radius) !important;
-
-            background:
-                var(--color-gray-50) !important;
-        }
-
-        .select2-container
-        .select2-selection--single
-        .select2-selection__rendered {
-            line-height: 48px !important;
-
-            padding-left:
-                1.25rem !important;
-        }
-
-        .select2-container
-        .select2-selection--single
-        .select2-selection__arrow {
-            height: 48px !important;
-        }
-
-        /* ==========================================
-           TASKS
-        ========================================== */
+        /* ================================
+           TASK LIST
+        ================================= */
 
         .task-list {
             display: grid;
 
-            gap: 1rem;
+            gap: 12px;
 
-            margin-top: 1.5rem;
+            margin-top: 22px;
         }
 
         .task-item {
+            display: flex;
+
+            align-items: center;
+
+            gap: 15px;
+
+            padding: 16px;
+
+            border-radius: var(--radius-lg);
+
             background:
                 linear-gradient(
                     135deg,
-                    var(--color-primary-light),
+                    #eef2ff,
                     white
                 );
 
-            padding:
-                1.25rem;
-
-            border-radius:
-                var(--border-radius-lg);
-
-            display: flex;
-
-            justify-content:
-                space-between;
-
-            align-items:
-                center;
-
-            gap: 1rem;
-
             border:
                 1px solid rgba(79, 70, 229, 0.1);
-
-            box-shadow:
-                var(--shadow-sm);
         }
 
         .task-name {
+            flex: 1;
+
             font-weight: 600;
 
-            color:
-                var(--color-gray-800);
+            color: var(--gray-800);
 
-            flex: 1;
+            word-break: break-word;
         }
 
-        .task-item input[type="number"] {
-            width: 6rem;
+        .task-count-input {
+            width: 90px;
 
-            padding:
-                0.625rem;
+            height: 44px;
+
+            padding: 5px;
+
+            text-align: center;
+
+            font-size: 16px;
+
+            font-weight: 600;
 
             border:
-                2px solid var(--color-primary);
+                2px solid var(--primary);
 
-            border-radius:
-                var(--border-radius);
-
-            text-align:
-                center;
-
-            font-weight:
-                600;
-
-            color:
-                var(--color-primary);
-
-            background:
-                white;
+            border-radius: 8px;
         }
 
-        /* ==========================================
+        /* ================================
            COUNTER
-        ========================================== */
+        ================================= */
 
         .counter {
             position: fixed;
 
-            top: 1.5rem;
+            top: 20px;
 
-            right: 1.5rem;
+            right: 20px;
+
+            z-index: 50;
+
+            padding: 10px 22px;
+
+            border-radius: 999px;
+
+            color: white;
+
+            font-size: 22px;
+
+            font-weight: 700;
 
             background:
                 linear-gradient(
@@ -412,55 +340,32 @@
                     var(--gradient-end)
                 );
 
-            color: white;
-
-            padding:
-                1rem 2rem;
-
-            border-radius:
-                9999px;
-
-            font-size:
-                1.5rem;
-
-            font-weight:
-                700;
-
-            box-shadow:
-                var(--shadow-lg);
-
-            z-index:
-                50;
+            box-shadow: var(--shadow);
         }
 
-        /* ==========================================
+        /* ================================
            MODAL
-        ========================================== */
+        ================================= */
 
         .modal {
             position: fixed;
 
             inset: 0;
 
-            background:
-                rgba(15, 23, 42, 0.7);
-
-            backdrop-filter:
-                blur(8px);
+            z-index: 100;
 
             display: none;
 
-            align-items:
-                center;
+            align-items: center;
 
-            justify-content:
-                center;
+            justify-content: center;
 
-            padding:
-                1.5rem;
+            padding: 20px;
 
-            z-index:
-                100;
+            background:
+                rgba(15, 23, 42, 0.7);
+
+            backdrop-filter: blur(5px);
         }
 
         .modal.show {
@@ -468,224 +373,175 @@
         }
 
         .modal-content {
-            background:
-                white;
+            width: 100%;
 
-            padding:
-                2.5rem;
+            max-width: 600px;
 
-            border-radius:
-                var(--border-radius-xl);
+            max-height: 90vh;
 
-            width:
-                100%;
+            overflow-y: auto;
 
-            max-width:
-                32rem;
+            padding: 28px;
 
-            position:
-                relative;
+            background: white;
 
-            box-shadow:
-                var(--shadow-lg);
+            border-radius: 18px;
 
-            max-height:
-                90vh;
-
-            overflow:
-                auto;
+            box-shadow: var(--shadow);
         }
 
         .modal-header {
             display: flex;
 
-            justify-content:
-                space-between;
+            align-items: center;
 
-            align-items:
-                center;
+            justify-content: space-between;
 
-            margin-bottom:
-                2rem;
+            margin-bottom: 20px;
         }
 
         .modal-title {
-            font-size:
-                1.75rem;
+            font-size: 24px;
 
-            font-weight:
-                700;
-
-            color:
-                var(--color-gray-900);
+            font-weight: 700;
         }
 
         .modal-close {
-            background: none;
-
             border: none;
 
-            color:
-                var(--color-gray-400);
+            background: transparent;
+
+            color: var(--gray-500);
+
+            font-size: 28px;
 
             cursor: pointer;
-
-            padding:
-                0.5rem;
         }
 
-        .search-container {
-            position:
-                relative;
-
-            margin-bottom:
-                1.5rem;
-        }
+        /* ================================
+           SEARCH
+        ================================= */
 
         .search-input {
-            width:
-                100%;
+            width: 100%;
 
-            padding:
-                1rem;
+            height: 50px;
+
+            padding: 0 15px;
 
             border:
-                2px solid var(--color-gray-200);
+                2px solid var(--gray-200);
 
-            border-radius:
-                var(--border-radius-lg);
+            border-radius: var(--radius);
 
-            font-size:
-                1rem;
+            font-size: 16px;
 
-            background:
-                var(--color-gray-50);
+            margin-bottom: 15px;
         }
 
         .search-input:focus {
-            outline:
-                none;
+            outline: none;
 
-            border-color:
-                var(--color-primary);
-
-            background:
-                white;
+            border-color: var(--primary);
         }
 
+        /* ================================
+           CHECKBOX
+        ================================= */
+
         .task-checkbox-list {
-            max-height:
-                24rem;
+            max-height: 450px;
 
-            overflow-y:
-                auto;
-
-            margin:
-                1.5rem 0;
+            overflow-y: auto;
         }
 
         .task-checkbox-item {
-            display:
-                flex;
+            display: flex;
 
-            align-items:
-                center;
+            align-items: center;
 
-            padding:
-                1rem;
+            gap: 12px;
 
-            border-radius:
-                var(--border-radius);
+            padding: 13px;
 
-            cursor:
-                pointer;
+            margin-bottom: 5px;
 
-            margin-bottom:
-                0.5rem;
+            border-radius: 8px;
+
+            cursor: pointer;
         }
 
         .task-checkbox-item:hover {
-            background:
-                var(--color-gray-50);
+            background: var(--gray-50);
         }
 
-        .task-checkbox-item input[type="checkbox"] {
-            width:
-                1.25rem;
+        .task-checkbox-item input {
+            width: 20px;
 
-            height:
-                1.25rem;
+            height: 20px;
 
-            margin-right:
-                1rem;
-
-            cursor:
-                pointer;
+            cursor: pointer;
         }
 
-        .loading {
-            text-align:
-                center;
+        .task-checkbox-item span {
+            flex: 1;
 
-            padding:
-                2rem;
+            font-size: 15px;
 
-            color:
-                var(--color-gray-500);
+            color: var(--gray-800);
         }
 
+        /* ================================
+           STATUS
+        ================================= */
+
+        .loading,
         .empty {
-            text-align:
-                center;
+            text-align: center;
 
-            padding:
-                2rem;
+            padding: 30px;
 
-            color:
-                var(--color-gray-500);
+            color: var(--gray-500);
         }
 
-        /* ==========================================
+        /* ================================
            MOBILE
-        ========================================== */
+        ================================= */
 
-        @media (max-width: 640px) {
+        @media (max-width: 600px) {
 
             .container {
-                margin:
-                    1rem;
+                margin: 10px auto;
 
-                padding:
-                    0;
-            }
-
-            .form-toggle {
-                flex-direction:
-                    column;
-            }
-
-            .modal-content {
-                padding:
-                    1.5rem;
-            }
-
-            .counter {
-                top:
-                    1rem;
-
-                right:
-                    1rem;
-
-                font-size:
-                    1.25rem;
-
-                padding:
-                    0.75rem 1.5rem;
+                padding: 0 10px;
             }
 
             .form-content {
-                padding:
-                    1.25rem;
+                padding: 20px;
+            }
+
+            .form-toggle {
+                flex-direction: column;
+            }
+
+            .counter {
+                top: 10px;
+
+                right: 10px;
+
+                font-size: 18px;
+
+                padding: 8px 16px;
+            }
+
+            .task-item {
+                align-items: flex-start;
+
+                flex-direction: column;
+            }
+
+            .task-count-input {
+                width: 100%;
             }
 
         }
@@ -696,373 +552,257 @@
 
 <body>
 
-    <!-- ==========================================
-         COUNTER
-    ========================================== -->
+<!-- =====================================================
+     COUNTER
+===================================================== -->
 
-    <div
-        class="counter"
-        id="total-counter"
-    >
-        0
-    </div>
-
-
-    <div class="container">
-
-        <div class="card">
-
-            <!-- ======================================
-                 FORM TOGGLE
-            ======================================= -->
-
-            <div class="form-toggle">
-
-                <button
-                    class="toggle-btn active"
-                    data-form="1"
-                    type="button"
-                >
-
-                    <svg
-                        width="20"
-                        height="20"
-                        viewBox="0 0 24 24"
-                        fill="none"
-                        stroke="currentColor"
-                        stroke-width="2"
-                    >
-
-                        <path
-                            d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"
-                        />
-
-                        <circle
-                            cx="9"
-                            cy="7"
-                            r="4"
-                        />
-
-                        <path
-                            d="M23 21v-2a4 4 0 0 0-3-3.87"
-                        />
-
-                        <path
-                            d="M16 3.13a4 4 0 0 1 0 7.75"
-                        />
-
-                    </svg>
-
-                    Les Équipes
-
-                </button>
+<div
+    id="total-counter"
+    class="counter"
+>
+    0
+</div>
 
 
-                <button
-                    class="toggle-btn"
-                    data-form="2"
-                    type="button"
-                >
+<div class="container">
 
-                    <svg
-                        width="20"
-                        height="20"
-                        viewBox="0 0 24 24"
-                        fill="none"
-                        stroke="currentColor"
-                        stroke-width="2"
-                    >
+    <div class="card">
 
-                        <path
-                            d="M9 11l3 3L22 4"
-                        />
+        <!-- =================================================
+             FORM TOGGLE
+        ================================================== -->
 
-                        <path
-                            d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"
-                        />
+        <div class="form-toggle">
 
-                    </svg>
+            <button
+                type="button"
+                class="toggle-btn active"
+                data-form="1"
+            >
+                Les Équipes
+            </button>
 
-                    Les Tâches
-
-                </button>
-
-            </div>
-
-
-            <!-- ======================================
-                 FORM CONTENT
-            ======================================= -->
-
-            <div class="form-content">
-
-                <!-- DATE -->
-
-                <div class="form-group">
-
-                    <label
-                        class="form-label"
-                        for="date"
-                    >
-                        Date
-                    </label>
-
-                    <input
-                        type="date"
-                        id="date"
-                        class="form-input"
-                    >
-
-                </div>
-
-
-                <!-- CATEGORY -->
-
-                <div class="form-group">
-
-                    <label
-                        class="form-label"
-                        for="category"
-                    >
-                        Taches / Equipe
-                    </label>
-
-                    <select
-                        id="category"
-                        class="form-input"
-                    >
-
-                        <option value="">
-                            Chargement...
-                        </option>
-
-                    </select>
-
-                </div>
-
-
-                <!-- SELECT TASKS -->
-
-                <button
-                    id="select-tasks"
-                    class="btn btn-primary"
-                    type="button"
-                >
-
-                    <svg
-                        width="20"
-                        height="20"
-                        viewBox="0 0 24 24"
-                        fill="none"
-                        stroke="currentColor"
-                        stroke-width="2"
-                    >
-
-                        <path
-                            d="M12 5v14"
-                        />
-
-                        <path
-                            d="M5 12h14"
-                        />
-
-                    </svg>
-
-                    Sélectionner les Tâches / Equipe
-
-                </button>
-
-
-                <!-- SELECTED TASKS -->
-
-                <div
-                    id="selected-tasks"
-                    class="task-list"
-                >
-                </div>
-
-
-                <!-- SUBMIT -->
-
-                <button
-                    id="submit"
-                    class="btn btn-primary"
-                    style="display:none; margin-top:1.5rem;"
-                    type="button"
-                >
-
-                    Envoyer
-
-                </button>
-
-            </div>
+            <button
+                type="button"
+                class="toggle-btn"
+                data-form="2"
+            >
+                Les Tâches
+            </button>
 
         </div>
 
-    </div>
 
+        <!-- =================================================
+             FORM
+        ================================================== -->
 
-    <!-- ==========================================
-         TASK MODAL
-    =========================================== -->
+        <div class="form-content">
 
-    <div
-        id="task-modal"
-        class="modal"
-    >
+            <!-- DATE -->
 
-        <div class="modal-content">
+            <div class="form-group">
 
-            <div class="modal-header">
-
-                <h2 class="modal-title">
-                    Sélectionner des Tâches
-                </h2>
-
-                <button
-                    class="modal-close"
-                    type="button"
-                    aria-label="Fermer"
+                <label
+                    class="form-label"
+                    for="date"
                 >
-
-                    <svg
-                        width="24"
-                        height="24"
-                        viewBox="0 0 24 24"
-                        fill="none"
-                        stroke="currentColor"
-                        stroke-width="2"
-                    >
-
-                        <path
-                            d="M18 6L6 18"
-                        />
-
-                        <path
-                            d="M6 6l12 12"
-                        />
-
-                    </svg>
-
-                </button>
-
-            </div>
-
-
-            <div class="search-container">
+                    Date
+                </label>
 
                 <input
-                    type="text"
-                    id="search"
-                    class="search-input"
-                    placeholder="Rechercher..."
+                    id="date"
+                    type="date"
+                    class="form-input"
                 >
 
             </div>
 
 
-            <div
-                id="task-list"
-                class="task-checkbox-list"
-            >
+            <!-- CATEGORY -->
 
-                <div class="loading">
-                    Chargement...
-                </div>
+            <div class="form-group">
+
+                <label
+                    class="form-label"
+                    for="category"
+                >
+                    Taches / Equipe
+                </label>
+
+                <select
+                    id="category"
+                    class="form-input"
+                >
+                    <option value="">
+                        Chargement...
+                    </option>
+                </select>
 
             </div>
 
 
+            <!-- SELECT TASKS -->
+
+            <button
+                id="select-tasks"
+                type="button"
+                class="btn btn-primary"
+            >
+                Sélectionner les Tâches / Equipe
+            </button>
+
+
+            <!-- SELECTED TASKS -->
+
             <div
+                id="selected-tasks"
+                class="task-list"
+            >
+            </div>
+
+
+            <!-- SUBMIT -->
+
+            <button
+                id="submit"
+                type="button"
+                class="btn btn-primary"
                 style="
-                    display:flex;
-                    justify-content:flex-end;
-                    gap:1rem;
-                    margin-top:1.5rem;
+                    display:none;
+                    margin-top:20px;
                 "
             >
-
-                <button
-                    class="btn btn-primary"
-                    id="confirm-selection"
-                    type="button"
-                >
-                    Terminé
-                </button>
-
-            </div>
+                Envoyer
+            </button>
 
         </div>
 
     </div>
 
+</div>
 
-    <!-- ==========================================
-         CONFIRMATION MODAL
-    =========================================== -->
 
-    <div
-        id="confirmation-modal"
-        class="modal"
-    >
+<!-- =====================================================
+     TASK MODAL
+===================================================== -->
 
-        <div class="modal-content">
+<div
+    id="task-modal"
+    class="modal"
+>
 
-            <h2
-                class="modal-title"
-                style="margin-bottom:1rem;"
-            >
-                Confirmer l'envoi
+    <div class="modal-content">
+
+        <div class="modal-header">
+
+            <h2 class="modal-title">
+                Sélectionner des Tâches
             </h2>
 
-
-            <p
-                style="
-                    color:var(--color-gray-600);
-                    margin-bottom:1.5rem;
-                "
+            <button
+                id="close-task-modal"
+                type="button"
+                class="modal-close"
             >
-                Êtes-vous sûr de vouloir envoyer ces données ?
-            </p>
+                ×
+            </button>
+
+        </div>
 
 
-            <div
-                style="
-                    display:flex;
-                    justify-content:flex-end;
-                    gap:1rem;
-                "
-            >
-
-                <button
-                    class="btn btn-secondary"
-                    id="cancel-submit"
-                    type="button"
-                >
-                    Annuler
-                </button>
+        <input
+            id="search"
+            type="text"
+            class="search-input"
+            placeholder="Rechercher..."
+        >
 
 
-                <button
-                    class="btn btn-primary"
-                    id="confirm-submit"
-                    type="button"
-                    style="width:auto;"
-                >
-                    Confirmer
-                </button>
-
+        <div
+            id="task-list"
+            class="task-checkbox-list"
+        >
+            <div class="loading">
+                Chargement...
             </div>
+        </div>
+
+
+        <button
+            id="confirm-selection"
+            type="button"
+            class="btn btn-primary"
+        >
+            Terminé
+        </button>
+
+    </div>
+
+</div>
+
+
+<!-- =====================================================
+     CONFIRM MODAL
+===================================================== -->
+
+<div
+    id="confirmation-modal"
+    class="modal"
+>
+
+    <div class="modal-content">
+
+        <h2 class="modal-title">
+            Confirmer l'envoi
+        </h2>
+
+        <p
+            style="
+                margin-top:15px;
+                margin-bottom:25px;
+                color:#475569;
+            "
+        >
+            Êtes-vous sûr de vouloir envoyer ces données ?
+        </p>
+
+
+        <div
+            style="
+                display:flex;
+                gap:10px;
+            "
+        >
+
+            <button
+                id="cancel-submit"
+                type="button"
+                class="btn btn-secondary"
+            >
+                Annuler
+            </button>
+
+
+            <button
+                id="confirm-submit"
+                type="button"
+                class="btn btn-primary"
+            >
+                Confirmer
+            </button>
 
         </div>
 
     </div>
+
+</div>
 
 
 <script>
 
 /* =====================================================
-   STATE
+   VARIABLES
 ===================================================== */
 
 let activeForm = 1;
@@ -1079,7 +819,8 @@ let selectedTasks = [];
 ===================================================== */
 
 /*
- * FORM 1 - NEW URL
+ * CATEGORIES FORM 1
+ * THIS ONE IS WORKING - HTTP 200
  */
 
 const CATEGORY_URL_1 =
@@ -1087,7 +828,7 @@ const CATEGORY_URL_1 =
 
 
 /*
- * FORM 2
+ * CATEGORIES FORM 2
  */
 
 const CATEGORY_URL_2 =
@@ -1095,22 +836,36 @@ const CATEGORY_URL_2 =
 
 
 /*
- * TASKS
+ * TASKS FORM 1
+ *
+ * Keep your existing URL here if it is still valid.
  */
 
 const TASK_URL_1 =
     'https://script.google.com/macros/s/AKfycbzXLs8hnSLVmny0fm2of-JCM0rboTyNvFA8Vsvi_trtAEIUkIdmu5EZWFmKXXXPtUE-oA/exec';
 
+
+/*
+ * TASKS FORM 2
+ *
+ * NEW URL YOU JUST PROVIDED
+ */
+
 const TASK_URL_2 =
-    'https://script.google.com/macros/s/AKfycbxpr6RkAEwDWM-rJ6bL-KUl33oNECqJeGamHvfMvCCWv6MgF9318VDQ4qBQZPCPYoPDsA/exec';
+    'https://script.google.com/macros/s/AKfycbyiDwnqmdBJjd9b15m2kR5ZmPPOu3n50HdEQ1dBsTugpRo6-0F4ve_jQS7zMyNDOvkq6Q/exec';
 
 
 /*
- * SUBMIT
+ * SUBMIT FORM 1
  */
 
 const SUBMIT_URL_1 =
     'https://script.google.com/macros/s/AKfycbxDUEwNj-Ex8PE08Fcl0Hr62NUQBo2ZQowsy5steHKsuCaOgEjQ-TnjeDAuNrJ86rZd/exec';
+
+
+/*
+ * SUBMIT FORM 2
+ */
 
 const SUBMIT_URL_2 =
     'https://script.google.com/macros/s/AKfycbzKpIzXMQF46Pxy6wsKrdvz8HJ_Aufb1IZbNFj6m9FZZ6j1ueYADrXCNFnYvvd2JJYL/exec';
@@ -1136,21 +891,21 @@ async function fetchCategories() {
             : CATEGORY_URL_2;
 
 
+    console.log(
+        'Fetching categories:',
+        url
+    );
+
+
     const select =
         document.getElementById('category');
 
 
+    select.innerHTML =
+        '<option value="">Chargement...</option>';
+
+
     try {
-
-        console.log(
-            'Fetching categories:',
-            url
-        );
-
-
-        select.innerHTML =
-            '<option value="">Chargement...</option>';
-
 
         const response =
             await fetch(
@@ -1164,7 +919,7 @@ async function fetchCategories() {
 
 
         console.log(
-            'HTTP status:',
+            'Categories HTTP status:',
             response.status
         );
 
@@ -1172,7 +927,7 @@ async function fetchCategories() {
         if (!response.ok) {
 
             throw new Error(
-                `HTTP ${response.status} ${response.statusText}`
+                `HTTP ${response.status}`
             );
 
         }
@@ -1183,41 +938,33 @@ async function fetchCategories() {
 
 
         console.log(
-            'Google response:',
+            'Categories response:',
             text
         );
 
 
         let result;
 
-
         try {
 
             result =
                 JSON.parse(text);
 
-        } catch (jsonError) {
-
-            console.error(
-                'Invalid JSON response:',
-                text
-            );
+        } catch (error) {
 
             throw new Error(
-                'Google Apps Script returned HTML instead of JSON'
+                'Response is not valid JSON'
             );
 
         }
 
 
-        console.log(
-            'Parsed result:',
-            result
-        );
-
-
         /*
-         * FORMAT 1:
+         * Support:
+         *
+         * [...]
+         *
+         * OR
          *
          * {
          *   success: true,
@@ -1225,9 +972,15 @@ async function fetchCategories() {
          * }
          */
 
-        if (
+        if (Array.isArray(result)) {
+
+            categories =
+                result;
+
+        }
+
+        else if (
             result &&
-            result.success === true &&
             Array.isArray(result.data)
         ) {
 
@@ -1236,27 +989,10 @@ async function fetchCategories() {
 
         }
 
-
-        /*
-         * FORMAT 2:
-         *
-         * [...]
-         */
-
-        else if (
-            Array.isArray(result)
-        ) {
-
-            categories =
-                result;
-
-        }
-
-
         else {
 
             throw new Error(
-                'Invalid categories response format'
+                'Invalid categories format'
             );
 
         }
@@ -1284,13 +1020,12 @@ async function fetchCategories() {
 
                     }
 
-
                     return String(item).trim();
 
                 })
                 .filter(
                     item =>
-                        item !== ''
+                        item.length > 0
                 );
 
 
@@ -1299,10 +1034,6 @@ async function fetchCategories() {
             categories
         );
 
-
-        /*
-         * UPDATE SELECT
-         */
 
         select.innerHTML =
             '<option value="">Sélectionnez taches / equipe</option>';
@@ -1316,14 +1047,11 @@ async function fetchCategories() {
                         'option'
                     );
 
-
                 option.value =
                     category;
 
-
                 option.textContent =
                     category;
-
 
                 select.appendChild(
                     option
@@ -1334,7 +1062,7 @@ async function fetchCategories() {
 
 
         /*
-         * Refresh Select2
+         * Update Select2
          */
 
         if (
@@ -1350,8 +1078,9 @@ async function fetchCategories() {
 
         }
 
+    }
 
-    } catch (error) {
+    catch (error) {
 
         console.error(
             'Erreur lors de la récupération des catégories:',
@@ -1363,8 +1092,8 @@ async function fetchCategories() {
             '<option value="">Erreur de chargement</option>';
 
 
-        showError(
-            'Échec du chargement des catégories\n\n' +
+        alert(
+            'Erreur de chargement des catégories:\n' +
             error.message
         );
 
@@ -1385,23 +1114,23 @@ async function fetchTasks() {
             : TASK_URL_2;
 
 
+    console.log(
+        'Fetching tasks:',
+        url
+    );
+
+
     const container =
         document.getElementById(
             'task-list'
         );
 
 
+    container.innerHTML =
+        '<div class="loading">Chargement...</div>';
+
+
     try {
-
-        console.log(
-            'Fetching tasks:',
-            url
-        );
-
-
-        container.innerHTML =
-            '<div class="loading">Chargement...</div>';
-
 
         const response =
             await fetch(
@@ -1423,7 +1152,7 @@ async function fetchTasks() {
         if (!response.ok) {
 
             throw new Error(
-                `HTTP ${response.status} ${response.statusText}`
+                `HTTP ${response.status}`
             );
 
         }
@@ -1441,24 +1170,47 @@ async function fetchTasks() {
 
         let result;
 
-
         try {
 
             result =
                 JSON.parse(text);
 
-        } catch (error) {
+        }
+
+        catch (error) {
+
+            console.error(
+                'Tasks invalid JSON:',
+                text
+            );
 
             throw new Error(
-                'Google Apps Script returned invalid JSON for tasks'
+                'Tasks response is not valid JSON'
             );
 
         }
 
 
-        if (
+        /*
+         * Support both formats:
+         *
+         * [...]
+         *
+         * {
+         *   success: true,
+         *   data: [...]
+         * }
+         */
+
+        if (Array.isArray(result)) {
+
+            tasks =
+                result;
+
+        }
+
+        else if (
             result &&
-            result.success === true &&
             Array.isArray(result.data)
         ) {
 
@@ -1467,26 +1219,17 @@ async function fetchTasks() {
 
         }
 
-        else if (
-            Array.isArray(result)
-        ) {
-
-            tasks =
-                result;
-
-        }
-
         else {
 
             throw new Error(
-                'Invalid tasks response'
+                'Invalid tasks format'
             );
 
         }
 
 
         /*
-         * NORMALIZE TASKS
+         * NORMALIZE
          */
 
         tasks =
@@ -1519,7 +1262,7 @@ async function fetchTasks() {
                 })
                 .filter(
                     item =>
-                        item.task !== ''
+                        item.task.length > 0
                 );
 
 
@@ -1531,8 +1274,9 @@ async function fetchTasks() {
 
         renderTaskList();
 
+    }
 
-    } catch (error) {
+    catch (error) {
 
         console.error(
             'Erreur lors de la récupération des tâches:',
@@ -1540,18 +1284,12 @@ async function fetchTasks() {
         );
 
 
-        container.innerHTML =
-            `
+        container.innerHTML = `
             <div class="empty">
-                Impossible de charger les tâches.
+                Impossible de charger les tâches.<br><br>
+                ${escapeHtml(error.message)}
             </div>
-            `;
-
-
-        showError(
-            'Échec du chargement des tâches\n\n' +
-            error.message
-        );
+        `;
 
     }
 
@@ -1559,7 +1297,145 @@ async function fetchTasks() {
 
 
 /* =====================================================
-   FORM SWITCH
+   RENDER TASK LIST
+===================================================== */
+
+function renderTaskList(list = tasks) {
+
+    const container =
+        document.getElementById(
+            'task-list'
+        );
+
+
+    if (!list.length) {
+
+        container.innerHTML =
+            `
+            <div class="empty">
+                Aucune tâche trouvée.
+            </div>
+            `;
+
+        return;
+
+    }
+
+
+    container.innerHTML =
+        list.map(
+            task => {
+
+                const isChecked =
+                    selectedTasks.some(
+                        selected =>
+                            selected.task ===
+                            task.task
+                    );
+
+
+                return `
+                    <label
+                        class="task-checkbox-item"
+                    >
+
+                        <input
+                            type="checkbox"
+                            value="${escapeHtml(task.task)}"
+                            ${isChecked ? 'checked' : ''}
+                        >
+
+                        <span>
+                            ${escapeHtml(task.task)}
+                        </span>
+
+                    </label>
+                `;
+
+            }
+        ).join('');
+
+
+    container
+        .querySelectorAll(
+            'input[type="checkbox"]'
+        )
+        .forEach(
+            checkbox => {
+
+                checkbox.addEventListener(
+                    'change',
+                    () => {
+
+                        const taskName =
+                            checkbox.value;
+
+
+                        if (
+                            checkbox.checked
+                        ) {
+
+                            if (
+                                !selectedTasks.some(
+                                    task =>
+                                        task.task ===
+                                        taskName
+                                )
+                            ) {
+
+                                selectedTasks.push({
+                                    task:
+                                        taskName,
+
+                                    count:
+                                        0
+                                });
+
+                            }
+
+                        }
+
+                        else {
+
+                            selectedTasks =
+                                selectedTasks.filter(
+                                    task =>
+                                        task.task !==
+                                        taskName
+                                );
+
+                        }
+
+                    }
+                );
+
+            }
+        );
+
+}
+
+
+/* =====================================================
+   ESCAPE HTML
+===================================================== */
+
+function escapeHtml(text) {
+
+    const div =
+        document.createElement(
+            'div'
+        );
+
+    div.textContent =
+        text;
+
+    return div.innerHTML;
+
+}
+
+
+/* =====================================================
+   TOGGLE FORM
 ===================================================== */
 
 document
@@ -1590,7 +1466,8 @@ document
 
                     activeForm =
                         parseInt(
-                            button.dataset.form
+                            button.dataset.form,
+                            10
                         );
 
 
@@ -1628,8 +1505,8 @@ document
 
             if (!category) {
 
-                showError(
-                    'Sélectionnez une catégorie'
+                alert(
+                    'Veuillez sélectionner une équipe / tâche.'
                 );
 
                 return;
@@ -1657,8 +1534,8 @@ document
 ===================================================== */
 
 document
-    .querySelector(
-        '.modal-close'
+    .getElementById(
+        'close-task-modal'
     )
     .addEventListener(
         'click',
@@ -1714,159 +1591,7 @@ document
 
 
 /* =====================================================
-   RENDER TASK LIST
-===================================================== */
-
-function renderTaskList(
-    list = tasks
-) {
-
-    const container =
-        document.getElementById(
-            'task-list'
-        );
-
-
-    if (!list.length) {
-
-        container.innerHTML =
-            `
-            <div class="empty">
-                Aucune tâche trouvée.
-            </div>
-            `;
-
-        return;
-
-    }
-
-
-    container.innerHTML =
-        list
-            .map(
-                task => {
-
-                    const checked =
-                        selectedTasks.some(
-                            selected =>
-                                selected.task ===
-                                task.task
-                        );
-
-
-                    return `
-                        <label
-                            class="task-checkbox-item"
-                        >
-
-                            <input
-                                type="checkbox"
-                                value="${escapeHtml(task.task)}"
-                                ${checked ? 'checked' : ''}
-                            >
-
-                            <span>
-                                ${escapeHtml(task.task)}
-                            </span>
-
-                        </label>
-                    `;
-
-                }
-            )
-            .join('');
-
-
-    /*
-     * CHECKBOX EVENTS
-     */
-
-    container
-        .querySelectorAll(
-            'input[type="checkbox"]'
-        )
-        .forEach(
-            checkbox => {
-
-                checkbox.addEventListener(
-                    'change',
-                    () => {
-
-                        const taskName =
-                            checkbox.value;
-
-
-                        if (
-                            checkbox.checked
-                        ) {
-
-                            const exists =
-                                selectedTasks.some(
-                                    task =>
-                                        task.task ===
-                                        taskName
-                                );
-
-
-                            if (!exists) {
-
-                                selectedTasks.push({
-                                    task:
-                                        taskName,
-
-                                    count:
-                                        0
-                                });
-
-                            }
-
-                        }
-
-                        else {
-
-                            selectedTasks =
-                                selectedTasks.filter(
-                                    task =>
-                                        task.task !==
-                                        taskName
-                                );
-
-                        }
-
-                    }
-                );
-
-            }
-        );
-
-}
-
-
-/* =====================================================
-   ESCAPE HTML
-===================================================== */
-
-function escapeHtml(
-    text
-) {
-
-    const div =
-        document.createElement(
-            'div'
-        );
-
-
-    div.textContent =
-        text;
-
-
-    return div.innerHTML;
-
-}
-
-
-/* =====================================================
-   CONFIRM SELECTION
+   CONFIRM TASK SELECTION
 ===================================================== */
 
 document
@@ -1909,12 +1634,14 @@ function renderSelectedTasks() {
         container.innerHTML =
             '';
 
+
         document
             .getElementById(
                 'submit'
             )
             .style.display =
                 'none';
+
 
         updateTotal();
 
@@ -1924,36 +1651,31 @@ function renderSelectedTasks() {
 
 
     container.innerHTML =
-        selectedTasks
-            .map(
-                (task, index) => {
+        selectedTasks.map(
+            (task, index) => {
 
-                    return `
-                        <div class="task-item">
+                return `
+                    <div class="task-item">
 
-                            <span class="task-name">
-                                ${escapeHtml(task.task)}
-                            </span>
+                        <span class="task-name">
+                            ${escapeHtml(task.task)}
+                        </span>
 
-                            <input
-                                type="number"
-                                min="1"
-                                value="${task.count || ''}"
-                                data-index="${index}"
-                                class="task-count-input"
-                            >
+                        <input
+                            type="number"
+                            min="1"
+                            value="${task.count || ''}"
+                            data-index="${index}"
+                            class="task-count-input"
+                            placeholder="0"
+                        >
 
-                        </div>
-                    `;
+                    </div>
+                `;
 
-                }
-            )
-            .join('');
+            }
+        ).join('');
 
-
-    /*
-     * NUMBER INPUT EVENTS
-     */
 
     container
         .querySelectorAll(
@@ -1968,23 +1690,19 @@ function renderSelectedTasks() {
 
                         const index =
                             parseInt(
-                                input.dataset.index
+                                input.dataset.index,
+                                10
                             );
 
 
-                        if (
-                            selectedTasks[index]
-                        ) {
-
-                            selectedTasks[index].count =
-                                parseInt(
-                                    input.value
-                                ) || 0;
+                        selectedTasks[index].count =
+                            parseInt(
+                                input.value,
+                                10
+                            ) || 0;
 
 
-                            updateTotal();
-
-                        }
+                        updateTotal();
 
                     }
                 );
@@ -2007,36 +1725,6 @@ function renderSelectedTasks() {
 
 
 /* =====================================================
-   UPDATE COUNT
-===================================================== */
-
-function updateTaskCount(
-    taskName,
-    count
-) {
-
-    const task =
-        selectedTasks.find(
-            item =>
-                item.task ===
-                taskName
-        );
-
-
-    if (task) {
-
-        task.count =
-            parseInt(count) || 0;
-
-
-        updateTotal();
-
-    }
-
-}
-
-
-/* =====================================================
    TOTAL
 ===================================================== */
 
@@ -2046,7 +1734,12 @@ function updateTotal() {
         selectedTasks.reduce(
             (sum, task) =>
                 sum +
-                (parseInt(task.count) || 0),
+                (
+                    parseInt(
+                        task.count,
+                        10
+                    ) || 0
+                ),
             0
         );
 
@@ -2073,10 +1766,20 @@ document
         'click',
         () => {
 
-            if (!selectedTasks.length) {
+            const validTasks =
+                selectedTasks.filter(
+                    task =>
+                        parseInt(
+                            task.count,
+                            10
+                        ) > 0
+                );
 
-                showError(
-                    'Sélectionnez au moins une tâche'
+
+            if (!validTasks.length) {
+
+                alert(
+                    'Veuillez saisir au moins une quantité.'
                 );
 
                 return;
@@ -2156,50 +1859,30 @@ async function submitData() {
             .value;
 
 
-    /*
-     * VALIDATION
-     */
+    const validTasks =
+        selectedTasks.filter(
+            task =>
+                parseInt(
+                    task.count,
+                    10
+                ) > 0
+        );
+
 
     if (
         !date ||
         !category ||
-        !selectedTasks.length
+        !validTasks.length
     ) {
 
-        showError(
-            'Veuillez remplir tous les champs obligatoires'
+        alert(
+            'Veuillez remplir tous les champs.'
         );
 
         return;
 
     }
 
-
-    /*
-     * ONLY TASKS WITH COUNT
-     */
-
-    const tasksWithCount =
-        selectedTasks.filter(
-            task =>
-                parseInt(task.count) > 0
-        );
-
-
-    if (!tasksWithCount.length) {
-
-        showError(
-            'Veuillez saisir au moins un nombre de tâches'
-        );
-
-        return;
-
-    }
-
-
-    /*
-     * PAYLOAD
-     */
 
     const payload = {
 
@@ -2213,15 +1896,20 @@ async function submitData() {
             'FINCA 21',
 
         tasks:
-            tasksWithCount
+            validTasks.map(
+                task => ({
+                    task:
+                        task.task,
+
+                    count:
+                        parseInt(
+                            task.count,
+                            10
+                        )
+                })
+            )
 
     };
-
-
-    console.log(
-        'Submitting payload:',
-        payload
-    );
 
 
     const url =
@@ -2230,23 +1918,30 @@ async function submitData() {
             : SUBMIT_URL_2;
 
 
+    console.log(
+        'Submitting:',
+        payload
+    );
+
+
+    console.log(
+        'Submit URL:',
+        url
+    );
+
+
     try {
 
         /*
-         * GOOGLE APPS SCRIPT
-         *
-         * no-cors is kept here because this is
-         * the behavior used by your original code.
+         * Google Apps Script POST
          */
 
         await fetch(
             url,
             {
-                method:
-                    'POST',
+                method: 'POST',
 
-                mode:
-                    'no-cors',
+                mode: 'no-cors',
 
                 headers: {
                     'Content-Type':
@@ -2261,11 +1956,6 @@ async function submitData() {
         );
 
 
-        showSuccess(
-            'Effectif soumis avec succès!'
-        );
-
-
         document
             .getElementById(
                 'confirmation-modal'
@@ -2275,17 +1965,19 @@ async function submitData() {
             );
 
 
+        alert(
+            'Effectif soumis avec succès !'
+        );
+
+
         resetForm();
 
 
-        /*
-         * Reload categories after reset
-         */
-
         await fetchCategories();
 
+    }
 
-    } catch (error) {
+    catch (error) {
 
         console.error(
             'Submit error:',
@@ -2293,8 +1985,8 @@ async function submitData() {
         );
 
 
-        showError(
-            'Échec de la soumission des effectifs\n\n' +
+        alert(
+            'Erreur lors de la soumission:\n' +
             error.message
         );
 
@@ -2304,31 +1996,15 @@ async function submitData() {
 
 
 /* =====================================================
-   RESET FORM
+   RESET
 ===================================================== */
 
 function resetForm() {
 
     selectedTasks = [];
 
+    tasks = [];
 
-    /*
-     * CATEGORY
-     */
-
-    const category =
-        document.getElementById(
-            'category'
-        );
-
-
-    category.innerHTML =
-        '<option value="">Chargement...</option>';
-
-
-    /*
-     * SELECTED TASKS
-     */
 
     document
         .getElementById(
@@ -2338,21 +2014,17 @@ function resetForm() {
             '';
 
 
-    /*
-     * TASK MODAL
-     */
-
     document
         .getElementById(
             'task-list'
         )
         .innerHTML =
-            '<div class="loading">Chargement...</div>';
+            `
+            <div class="loading">
+                Chargement...
+            </div>
+            `;
 
-
-    /*
-     * SEARCH
-     */
 
     document
         .getElementById(
@@ -2362,10 +2034,6 @@ function resetForm() {
             '';
 
 
-    /*
-     * SUBMIT
-     */
-
     document
         .getElementById(
             'submit'
@@ -2374,10 +2042,6 @@ function resetForm() {
             'none';
 
 
-    /*
-     * COUNTER
-     */
-
     document
         .getElementById(
             'total-counter'
@@ -2385,55 +2049,18 @@ function resetForm() {
         .textContent =
             '0';
 
-
-    /*
-     * DATA
-     */
-
-    tasks = [];
-
 }
 
 
 /* =====================================================
-   ERROR
-===================================================== */
-
-function showError(
-    message
-) {
-
-    alert(
-        message
-    );
-
-}
-
-
-/* =====================================================
-   SUCCESS
-===================================================== */
-
-function showSuccess(
-    message
-) {
-
-    alert(
-        message
-    );
-
-}
-
-
-/* =====================================================
-   INITIALIZE
+   INITIALIZATION
 ===================================================== */
 
 $(document).ready(
     async function() {
 
         /*
-         * Select2
+         * SELECT2
          */
 
         $('#category').select2({
@@ -2445,7 +2072,7 @@ $(document).ready(
 
 
         /*
-         * Load categories
+         * LOAD CATEGORIES
          */
 
         await fetchCategories();
