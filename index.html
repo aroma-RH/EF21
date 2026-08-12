@@ -629,10 +629,10 @@
     // Fetch categories from API
     async function fetchCategories() {
       try {
-        const url = activeForm === 1 
-          ? 'https://script.google.com/macros/s/AKfycbxLSEPXBHctMIigbNugYuXB2DvUeHRUp0dxug3-bhoPP0_HduBj1LbSCdpl_UA25p1zdw/exec'
-          : 'https://script.google.com/macros/s/AKfycbxoy923OwLPZA7S2wq5qOjcp8xA1IVc-28vxSMXDCqobxt9keI_NRfQLwe9E1Y1w12OoQ/exec';
-        
+             const url = activeForm === 1
+            ? 'https://script.google.com/macros/s/AKfycbzfRxYYnYxk-OcwRcC9J66HKiM4g5o3trIs2sSFzCVoXdfknz32KWD-0EETHjuL_az1wQ/exec'
+            : 'https://script.google.com/macros/s/AKfycbxoy923OwLPZA7S2wq5qOjcp8xA1IVc-28vxSMXDCqobxt9keI_NRfQLwe9E1Y1w12OoQ/exec';
+
         const response = await fetch(url);
         categories = await response.json();
         
