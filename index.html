@@ -626,65 +626,17 @@
       });
     });
 
-    // =====================================================
-    // FETCH WITH RETRY
-    // Google Apps Script web apps intermittently fail on the
-    // internal "echo" redirect step even when doGet() itself
-    // completes successfully server-side. This retries a few
-    // times with a short delay before giving up.
-    // =====================================================
-    async function fetchWithRetry(url, options, retries = 2, delayMs = 800) {
-      let lastError;
-      for (let attempt = 0; attempt <= retries; attempt++) {
-        try {
-          const response = await fetch(url, options);
-          if (!response.ok) {
-            throw new Error(`HTTP ${response.status}`);
-          }
-          return response;
-        } catch (error) {
-          lastError = error;
-          console.warn(`Fetch attempt ${attempt + 1} failed for ${url}:`, error.message);
-          if (attempt < retries) {
-            await new Promise(resolve => setTimeout(resolve, delayMs));
-          }
-        }
-      }
-      throw lastError;
-    }
-
-    // Normalize a categories/tasks JSON payload that may come back either
-    // as a plain array, or as { success: true, data: [...] }
-    function normalizeListResponse(result) {
-      if (Array.isArray(result)) return result;
-      if (result && Array.isArray(result.data)) return result.data;
-      throw new Error('Format de réponse invalide');
-    }
-
     // Fetch categories from API
     async function fetchCategories() {
-      const select = document.getElementById('category');
-      select.innerHTML = '<option value="">Chargement...</option>';
-
       try {
         const url = activeForm === 1 
           ? 'https://script.google.com/macros/s/AKfycbxLSEPXBHctMIigbNugYuXB2DvUeHRUp0dxug3-bhoPP0_HduBj1LbSCdpl_UA25p1zdw/exec'
           : 'https://script.google.com/macros/s/AKfycbxoy923OwLPZA7S2wq5qOjcp8xA1IVc-28vxSMXDCqobxt9keI_NRfQLwe9E1Y1w12OoQ/exec';
         
-        const response = await fetchWithRetry(url, {
-          method: 'GET',
-          redirect: 'follow',
-          cache: 'no-cache'
-        });
-
-        const result = await response.json();
-        categories = normalizeListResponse(result).map(item => {
-          if (typeof item === 'object' && item !== null) {
-            return String(item.category || item.task || item.name || '').trim();
-          }
-          return String(item).trim();
-        }).filter(item => item.length > 0);
-
+        const response = await fetch(url);
+        categories = await response.json();
+        
+        const select = document.getElementById('category');
         select.innerHTML = '<option value="">Sélectionnez une catégorie</option>';
         categories.forEach(category => {
           const option = document.createElement('option');
@@ -692,45 +644,25 @@
           option.textContent = category;
           select.appendChild(option);
         });
-
-        if (window.jQuery && $('#category').hasClass('select2-hidden-accessible')) {
-          $('#category').trigger('change.select2');
-        }
       } catch (error) {
         console.error('Erreur lors de la récupération des catégories:', error);
-        select.innerHTML = '<option value="">Erreur de chargement</option>';
-        showError('Échec du chargement des catégories: ' + error.message);
+        showError('Échec du chargement des catégories');
       }
     }
 
     // Fetch tasks based on category
     async function fetchTasks() {
-      const taskListEl = document.getElementById('task-list');
-      taskListEl.innerHTML = '<div style="text-align:center;padding:2rem;color:var(--color-gray-500);">Chargement...</div>';
-
       try {
         const url = activeForm === 1
           ? 'https://script.google.com/macros/s/AKfycbzXLs8hnSLVmny0fm2of-JCM0rboTyNvFA8Vsvi_trtAEIUkIdmu5EZWFmKXXXPtUE-oA/exec'
           : 'https://script.google.com/macros/s/AKfycbxpr6RkAEwDWM-rJ6bL-KUl33oNECqJeGamHvfMvCCWv6MgF9318VDQ4qBQZPCPYoPDsA/exec';
         
-        const response = await fetchWithRetry(url, {
-          method: 'GET',
-          redirect: 'follow',
-          cache: 'no-cache'
-        });
-
-        const result = await response.json();
-        tasks = normalizeListResponse(result).map(item => {
-          if (typeof item === 'object' && item !== null) {
-            return { task: String(item.task || item.name || item.category || '').trim() };
-          }
-          return { task: String(item).trim() };
-        }).filter(item => item.task.length > 0);
-
+        const response = await fetch(url);
+        tasks = await response.json();
         renderTaskList();
       } catch (error) {
         console.error('Erreur lors de la récupération des tâches:', error);
-        taskListEl.innerHTML = `<div style="text-align:center;padding:2rem;color:var(--color-gray-500);">Impossible de charger les tâches.<br><br>${error.message}</div>`;
+        showError('Échec du chargement des tâches');
       }
     }
 
@@ -858,17 +790,14 @@
           ? 'https://script.google.com/macros/s/AKfycbxDUEwNj-Ex8PE08Fcl0Hr62NUQBo2ZQowsy5steHKsuCaOgEjQ-TnjeDAuNrJ86rZd/exec'
           : 'https://script.google.com/macros/s/AKfycbzKpIzXMQF46Pxy6wsKrdvz8HJ_Aufb1IZbNFj6m9FZZ6j1ueYADrXCNFnYvvd2JJYL/exec';
 
-        await fetchWithRetry(url, {
+        await fetch(url, {
           method: 'POST',
           mode: 'no-cors',
           headers: {
             'Content-Type': 'application/json'
           },
           body: JSON.stringify(payload)
-        }, 1, 800);
-        // Note: mode 'no-cors' means response.ok/status can't actually be
-        // read here (opaque response) - retry above only protects against
-        // network-level failures, not against silent server-side rejects.
+        });
 
         showSuccess('effectif soumis avec succès!');
         resetForm();
@@ -898,14 +827,10 @@
     }
 
     // Initialize the app
+    fetchCategories();
     $(document).ready(function() {
-      $('#category').select2({
-        width: '100%',
-        placeholder: 'Sélectionnez taches / equipe',
-        allowClear: true
-      });
-      fetchCategories();
-    });
+            $('#category').select2();
+        });
   </script>
 </body>
 </html>
